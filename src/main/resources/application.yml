@@ -1,0 +1,63 @@
+## 서버 포트 설정
+#server:
+#  port: 8085
+#
+## database 연동 설정
+#spring:
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:board;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+#    username: sa
+#    password:
+#  thymeleaf:
+#    cache: false
+#
+#  # spring data jpa 설정
+#  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+#    open-in-view: false
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+
+server:
+  port: 8092
+
+# Database 기본 세팅
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  mybatis:
+    type-aliases-package: com.codingrecipe.main.data.mapper.mapper
+    mapper-locations: classpath:/mapper/**/*.xml   #해당 위치에 xml 파일을 둬야 한다. 밑에서 다시 설명하겠다.
+    configuration.map-underscore-to-camel-case: true
+    config: mybatis/mybatis-config.xml
+    logging.level.hello.board.repository.mybatis: trace
+
+
+
+    # JPA 하이버네이트 로그 레벨 설정
+    jpa:
+      hibernate:
+        ddl-auto: create
+      # spring.jpa.hibernate.ddl-auto=update
+      generate-ddl: false
+      show-sql: true
+      database-platform: org.hibernate.dialect.H2Dialect
+      format_sql: true
+
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+logging:
+  level.org.hibernate: info
+  level.org.springframework: info
+
